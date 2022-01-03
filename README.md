@@ -9,7 +9,7 @@ the HTML output.
 
 <code>python main.py -p [abspath]/python_script.py</code>
 
-This will create pretty-printed, colour coded HTML file of the Python script that you
+This will create a pretty-printed, colour coded HTML file of the Python script that you
 can add to a Web page.
 
 In time this app should be available on <a href="https://pypi.org/">PyPI</a>
