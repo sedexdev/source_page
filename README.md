@@ -1,0 +1,19 @@
+# Python HTML Parser
+
+Parses Python source code and produces a colour-coded HTML representation of the code. 
+This app uses the <a href="https://docs.python.org/3/library/tokenize.html">tokenize</a> 
+built-in Python tokenizer class for lexical analysis, then parses the tokens to generate 
+the HTML output.
+
+# Usage
+
+<code>python main.py -p [abspath]/python_script.py</code>
+
+This will create pretty-printed, colour coded HTML file of the Python script that you
+can add to a Web page.
+
+In time this app should be available on <a href="https://pypi.org/">PyPI</a>
+
+# License
+
+<a href="https://github.com/sedexdev/python_html_parser/blob/main/LICENSE">M.I.T</a>

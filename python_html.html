@@ -1,0 +1,87 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Python HTML</title>
+        </head>
+        <style>
+        
+    .code {
+        font-weight: bold;
+    }
+    .code-block {
+        display: flex;
+        flex-direction: column;
+        background-color: lightgrey;
+        border: 1px dashed #333;
+        text-align: left;
+        font-size: 1.1rem;
+        overflow-x: scroll;
+        white-space: nowrap;
+        padding: 20px;
+    }
+    .code-line {
+        margin: 3px 0;
+    }
+    .python-code-block {
+        background-color: #333;
+        margin: 40px 0;
+    }
+    .python-class,
+    .python-var,
+    .python-func,
+    .python-op,
+    .python-str,
+    .python-str-prefix,
+    .python-keyword,
+    .python-special-keyword,
+    .python-comment,
+    .line-number {
+        font-size: 1.1rem;
+    }
+    .python-var {
+        color: skyblue;
+    }
+    .python-op {
+        color: #fff;
+    }
+    .python-str {
+        color: tomato;
+    }
+    .python-str-prefix {
+        color: orange;
+    }
+    .python-keyword {
+        color: rgb(87, 62, 245);
+    }
+    .python-special-keyword {
+        color: rgb(159, 66, 253);
+    }
+    .python-comment {
+        color: rgb(25, 129, 25);
+    }
+    .line-number {
+        color: #666;
+    }
+    
+        </style>
+        <body>
+            <div class="code-block python-code-block">
+        <code class="code-line"><span class='line-number'>&nbsp;1. </span><span class="python-comment">#!/usr/bin/bash python</span></code><code class="code-line"><span class='line-number'>&nbsp;2. </span></code><code class="code-line"><span class='line-number'>&nbsp;3. </span><span class="python-special-keyword">import</span><span class="python-var">&nbsp;argparse</span></code><code class="code-line"><span class='line-number'>&nbsp;4. </span><span class="python-special-keyword">import</span><span class="python-var">&nbsp;os</span></code><code class="code-line"><span class='line-number'>&nbsp;5. </span><span class="python-special-keyword">import</span><span class="python-var">&nbsp;pathlib</span></code><code class="code-line"><span class='line-number'>&nbsp;6. </span><span class="python-special-keyword">import</span><span class="python-var">&nbsp;tokenize</span></code><code class="code-line"><span class='line-number'>&nbsp;7. </span></code><code class="code-line"><span class='line-number'>&nbsp;8. </span><span class="python-special-keyword">from</span><span class="python-var">&nbsp;parser</span><span class="python-special-keyword">&nbsp;import</span><span class="python-var">&nbsp;PythonParser</span></code><code class="code-line"><span class='line-number'>&nbsp;9. </span><span class="python-special-keyword">from</span><span class="python-var">&nbsp;types</span><span class="python-special-keyword">&nbsp;import</span><span class="python-var">&nbsp;ModuleType</span></code><code class="code-line"><span class='line-number'>10. </span></code><code class="code-line"><span class='line-number'>11. </span></code><code class="code-line"><span class='line-number'>12. </span><span class="python-keyword">def</span><span class="python-var">&nbsp;get_args</span><span class="python-op">(</span><span class="python-op">)</span><span class="python-op">&nbsp;-></span><span class="python-keyword">&nbsp;None</span><span class="python-op">:</span></code><code class="code-line"><span class='line-number'>13. </span><span class="python-str">&nbsp;&nbsp;&nbsp;&nbsp;"""
+    Gets command line arguments for the Python to parse
+    """</span></code><code class="code-line"><span class='line-number'>14. </span><span class="python-var">&nbsp;&nbsp;&nbsp;&nbsp;parser</span><span class="python-op">&nbsp;=</span><span class="python-var">&nbsp;argparse</span><span class="python-op">.</span><span class="python-var">ArgumentParser</span><span class="python-op">(</span><span class="python-op">)</span></code><code class="code-line"><span class='line-number'>15. </span><span class="python-var">&nbsp;&nbsp;&nbsp;&nbsp;parser</span><span class="python-op">.</span><span class="python-var">add_argument</span><span class="python-op">(</span><span class="python-str">'-p'</span><span class="python-op">,</span><span class="python-str">&nbsp;'--path'</span><span class="python-op">,</span><span class="python-var">&nbsp;dest</span><span class="python-op">=</span><span class="python-str">'path'</span><span class="python-op">,</span><span class="python-var">&nbsp;help</span><span class="python-op">=</span><span class="python-str">'The full path of the Python file to be parsed into HTML'</span><span class="python-op">)</span></code><code class="code-line"><span class='line-number'>16. </span><span class="python-var">&nbsp;&nbsp;&nbsp;&nbsp;args</span><span class="python-op">&nbsp;=</span><span class="python-var">&nbsp;parser</span><span class="python-op">.</span><span class="python-var">parse_args</span><span class="python-op">(</span><span class="python-op">)</span></code><code class="code-line"><span class='line-number'>17. </span><span class="python-special-keyword">&nbsp;&nbsp;&nbsp;&nbsp;if</span><span class="python-special-keyword">&nbsp;not</span><span class="python-var">&nbsp;args</span><span class="python-op">.</span><span class="python-var">path</span><span class="python-op">:</span></code><code class="code-line"><span class='line-number'>18. </span><span class="python-var">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parser</span><span class="python-op">.</span><span class="python-var">error</span><span class="python-op">(</span><span class="python-str">'\n[-] Expected a file to parse'</span><span class="python-op">)</span></code><code class="code-line"><span class='line-number'>19. </span><span class="python-special-keyword">&nbsp;&nbsp;&nbsp;&nbsp;if</span><span class="python-special-keyword">&nbsp;not</span><span class="python-var">&nbsp;os</span><span class="python-op">.</span><span class="python-var">path</span><span class="python-op">.</span><span class="python-var">isfile</span><span class="python-op">(</span><span class="python-var">args</span><span class="python-op">.</span><span class="python-var">path</span><span class="python-op">)</span><span class="python-op">:</span></code><code class="code-line"><span class='line-number'>20. </span><span class="python-var">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parser</span><span class="python-op">.</span><span class="python-var">error</span><span class="python-op">(</span><span class="python-str">'\n[-] File not found'</span><span class="python-op">)</span></code><code class="code-line"><span class='line-number'>21. </span><span class="python-special-keyword">&nbsp;&nbsp;&nbsp;&nbsp;if</span><span class="python-special-keyword">&nbsp;not</span><span class="python-var">&nbsp;os</span><span class="python-op">.</span><span class="python-var">path</span><span class="python-op">.</span><span class="python-var">isabs</span><span class="python-op">(</span><span class="python-var">args</span><span class="python-op">.</span><span class="python-var">path</span><span class="python-op">)</span><span class="python-op">:</span></code><code class="code-line"><span class='line-number'>22. </span><span class="python-var">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parser</span><span class="python-op">.</span><span class="python-var">error</span><span class="python-op">(</span><span class="python-str">'\n[-] Please provide the absolute path for the file'</span><span class="python-op">)</span></code><code class="code-line"><span class='line-number'>23. </span><span class="python-var">&nbsp;&nbsp;&nbsp;&nbsp;suffix</span><span class="python-op">&nbsp;=</span><span class="python-var">&nbsp;pathlib</span><span class="python-op">.</span><span class="python-var">Path</span><span class="python-op">(</span><span class="python-var">args</span><span class="python-op">.</span><span class="python-var">path</span><span class="python-op">)</span><span class="python-op">.</span><span class="python-var">suffix</span></code><code class="code-line"><span class='line-number'>24. </span><span class="python-special-keyword">&nbsp;&nbsp;&nbsp;&nbsp;if</span><span class="python-special-keyword">&nbsp;not</span><span class="python-var">&nbsp;suffix</span><span class="python-op">&nbsp;==</span><span class="python-str">&nbsp;'.py'</span><span class="python-op">:</span></code><code class="code-line"><span class='line-number'>25. </span><span class="python-var">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parser</span><span class="python-op">.</span><span class="python-var">error</span><span class="python-op">(</span><span class="python-str-prefix">f</span><span class="python-str">'\n[-] Expected a Python (.py) file, not {suffix} file type'</span><span class="python-op">)</span></code><code class="code-line"><span class='line-number'>26. </span><span class="python-special-keyword">&nbsp;&nbsp;&nbsp;&nbsp;return</span><span class="python-var">&nbsp;args</span></code><code class="code-line"><span class='line-number'>27. </span></code><code class="code-line"><span class='line-number'>28. </span></code><code class="code-line"><span class='line-number'>29. </span><span class="python-keyword">def</span><span class="python-var">&nbsp;write_html_file</span><span class="python-op">(</span><span class="python-var">html</span><span class="python-op">:</span><span class="python-var">&nbsp;str</span><span class="python-op">)</span><span class="python-op">&nbsp;-></span><span class="python-keyword">&nbsp;None</span><span class="python-op">:</span></code><code class="code-line"><span class='line-number'>30. </span><span class="python-str">&nbsp;&nbsp;&nbsp;&nbsp;"""
+    Writes the html content generated from the PythonParser
+    to a file and saves it in the current directory
+
+    Args:
+        html (str): the html to write to file
+    """</span></code><code class="code-line"><span class='line-number'>31. </span><span class="python-var">&nbsp;&nbsp;&nbsp;&nbsp;base_dir</span><span class="python-op">&nbsp;=</span><span class="python-var">&nbsp;os</span><span class="python-op">.</span><span class="python-var">path</span><span class="python-op">.</span><span class="python-var">abspath</span><span class="python-op">(</span><span class="python-var">os</span><span class="python-op">.</span><span class="python-var">path</span><span class="python-op">.</span><span class="python-var">dirname</span><span class="python-op">(</span><span class="python-var">__file__</span><span class="python-op">)</span><span class="python-op">)</span></code><code class="code-line"><span class='line-number'>32. </span><span class="python-special-keyword">&nbsp;&nbsp;&nbsp;&nbsp;with</span><span class="python-var">&nbsp;open</span><span class="python-op">(</span><span class="python-str-prefix">f</span><span class="python-str">'{base_dir}/python_html.html'</span><span class="python-op">,</span><span class="python-str">&nbsp;'w+'</span><span class="python-op">)</span><span class="python-special-keyword">&nbsp;as</span><span class="python-var">&nbsp;file</span><span class="python-op">:</span></code><code class="code-line"><span class='line-number'>33. </span><span class="python-var">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file</span><span class="python-op">.</span><span class="python-var">write</span><span class="python-op">(</span><span class="python-var">html</span><span class="python-op">)</span></code><code class="code-line"><span class='line-number'>34. </span></code><code class="code-line"><span class='line-number'>35. </span></code><code class="code-line"><span class='line-number'>36. </span><span class="python-keyword">def</span><span class="python-var">&nbsp;main</span><span class="python-op">(</span><span class="python-op">)</span><span class="python-op">&nbsp;-></span><span class="python-keyword">&nbsp;None</span><span class="python-op">:</span></code><code class="code-line"><span class='line-number'>37. </span><span class="python-str">&nbsp;&nbsp;&nbsp;&nbsp;"""
+    Main function for the Python_HTML_Parser app
+    """</span></code><code class="code-line"><span class='line-number'>38. </span><span class="python-var">&nbsp;&nbsp;&nbsp;&nbsp;args</span><span class="python-op">&nbsp;=</span><span class="python-var">&nbsp;get_args</span><span class="python-op">(</span><span class="python-op">)</span></code><code class="code-line"><span class='line-number'>39. </span><span class="python-var">&nbsp;&nbsp;&nbsp;&nbsp;print</span><span class="python-op">(</span><span class="python-str">'\n[+] Writing HTML from Python source...'</span><span class="python-op">)</span></code><code class="code-line"><span class='line-number'>40. </span><span class="python-special-keyword">&nbsp;&nbsp;&nbsp;&nbsp;with</span><span class="python-var">&nbsp;open</span><span class="python-op">(</span><span class="python-var">args</span><span class="python-op">.</span><span class="python-var">path</span><span class="python-op">,</span><span class="python-str">&nbsp;'r'</span><span class="python-op">)</span><span class="python-special-keyword">&nbsp;as</span><span class="python-var">&nbsp;file</span><span class="python-op">:</span></code><code class="code-line"><span class='line-number'>41. </span><span class="python-var">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tokens</span><span class="python-op">&nbsp;=</span><span class="python-var">&nbsp;tokenize</span><span class="python-op">.</span><span class="python-var">generate_tokens</span><span class="python-op">(</span><span class="python-var">file</span><span class="python-op">.</span><span class="python-var">readline</span><span class="python-op">)</span></code><code class="code-line"><span class='line-number'>42. </span><span class="python-var">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;python_parser</span><span class="python-op">&nbsp;=</span><span class="python-var">&nbsp;PythonParser</span><span class="python-op">(</span><span class="python-var">tokens</span><span class="python-op">)</span></code><code class="code-line"><span class='line-number'>43. </span><span class="python-var">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;html</span><span class="python-op">&nbsp;=</span><span class="python-var">&nbsp;python_parser</span><span class="python-op">.</span><span class="python-var">generate_html</span><span class="python-op">(</span><span class="python-op">)</span></code><code class="code-line"><span class='line-number'>44. </span><span class="python-var">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write_html_file</span><span class="python-op">(</span><span class="python-var">html</span><span class="python-op">)</span></code><code class="code-line"><span class='line-number'>45. </span><span class="python-var">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print</span><span class="python-op">(</span><span class="python-str">'[+] Writing complete!'</span><span class="python-op">)</span></code><code class="code-line"><span class='line-number'>46. </span><span class="python-var">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print</span><span class="python-op">(</span><span class="python-str-prefix">f</span><span class="python-str">'\n[+] You can find your file here: {args.path}/python_html.html\n'</span><span class="python-op">)</span></code><code class="code-line"><span class='line-number'>47. </span></code><code class="code-line"><span class='line-number'>48. </span></code><code class="code-line"><span class='line-number'>49. </span><span class="python-special-keyword">if</span><span class="python-var">&nbsp;__name__</span><span class="python-op">&nbsp;==</span><span class="python-str">&nbsp;'__main__'</span><span class="python-op">:</span></code><code class="code-line"><span class='line-number'>50. </span><span class="python-var">&nbsp;&nbsp;&nbsp;&nbsp;main</span><span class="python-op">(</span><span class="python-op">)</span></code><code class="code-line"><span class='line-number'>51. </span></code><code class="code-line"><span class='line-number'>52. </span><span class="python-var"></span></code>
+            </div>
+        </body>
+        </html>
+        
