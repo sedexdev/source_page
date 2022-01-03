@@ -12,6 +12,8 @@ the HTML output.
 This will create a pretty-printed, colour coded HTML file of the Python script that you
 can add to a Web page.
 
+The HTML file will be saved in the current working directory.
+
 In time this app should be available on <a href="https://pypi.org/">PyPI</a>
 
 # License
