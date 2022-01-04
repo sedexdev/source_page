@@ -6,7 +6,6 @@ import pathlib
 import tokenize
 
 from parser import PythonParser
-from types import ModuleType
 
 
 def get_args() -> None:
