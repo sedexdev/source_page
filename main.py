@@ -70,7 +70,7 @@ def main() -> None:
         if platform == "linux" or platform == "darwin":
             print(f'\n[+] You can find your file here: {args.path}/python_html.html\n')
         elif platform == "win32":
-            print(f'\n[+] You can find your file here: {args.path}/python_html.html\n')
+            print(f'\n[+] You can find your file here: {args.path}\python_html.html\n')
 
 
 if __name__ == '__main__':
