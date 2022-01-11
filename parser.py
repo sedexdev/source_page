@@ -240,10 +240,10 @@ class PythonParser():
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Python HTML</title>
+            <style>
+                {self.CSS}
+            </style>
         </head>
-        <style>
-        {self.CSS}
-        </style>
         <body>
             <div class="code-block python-code-block">
         """
