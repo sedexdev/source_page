@@ -28,10 +28,13 @@ def get_args() -> None:
     return args
 
 
-def get_platform() -> None:
+def get_platform() -> str:
     """
     Returns the current platform for purposes of generating
     the correct path for the output file
+
+    Returns:
+        Value of sys.platform
     """
     return sys.platform
 

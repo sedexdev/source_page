@@ -94,6 +94,9 @@ class PythonParser():
         Args:
             value (str): the string value of this token
             spacer (str): whitespace to add to the span element
+
+        Returns:
+            Boolean defining whether a string prefix has been added
         """
         updated = False
         if value[0] in ["r", "u", "R", "U", "f", "F", "fr", "Fr", "fR", "FR",
@@ -181,6 +184,7 @@ class PythonParser():
                 break
 
             token_type = token_ids[token.type]
+            print(token_type)
             token_value = token.string
             prev_token_start = None
             prev_token_length = None
@@ -258,10 +262,13 @@ class PythonParser():
         </html>
         """
 
-    def generate_html(self) -> None:
+    def generate_html(self) -> str:
         """
         Generates the HTML represention of the Python source
         code
+
+        Returns:
+            Value of self.html
         """
         self.add_html_meta()
         self.parse()
