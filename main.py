@@ -65,6 +65,24 @@ def python_updated() -> bool:
     return False
 
 
+def get_output_path(delimiter: str, args: argparse.Namespace) -> str:
+    """
+    Creates a string represntation of the absolute path
+    for the parent directory of the HTML output file
+
+    Args:
+        delimiter (str): the path delimiter
+        args (Namespace): command line arguments
+
+    Returns:
+        A string of the parent directory for the HTML file
+    """
+    path_list = args.path.split(delimiter)
+    path_dir = path_list[:len(path_list)-1]
+    path = delimiter.join([x for x in path_dir])
+    return f"{path}{delimiter}"
+
+
 def write_html_file(html: str, platform: str) -> None:
     """
     Writes the html content generated from the PythonParser
@@ -99,10 +117,10 @@ def main() -> None:
         write_html_file(html, sys.platform)
         print('[+] Writing complete!')
         if sys.platform == "linux" or sys.platform == "darwin":
-            print(f'\n[+] You can find your file here: {args.path}/python_html.html\n')
+            path = get_output_path("/", args)
         elif sys.platform == "win32":
-            print(f'\n[+] You can find your file here: {args.path}\python_html.html\n')
-
+            path = get_output_path("\\", args)
+        print(f'\n[+] You can find your file here: {path}python_html.html\n')
 
 if __name__ == '__main__':
     main()
