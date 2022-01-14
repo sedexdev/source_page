@@ -11,9 +11,9 @@ from vars import (
 class PythonParser():
 
     """
-    Defines functions for parsing a tokenized Python
-    program and building a colour coded HTML pages
-    from the input
+    Defines functions for parsing tokenized Python
+    source code and building a syntax highlighted HTML page
+    from the result
     """
 
     CSS = """
@@ -109,15 +109,12 @@ class PythonParser():
             self.html += f"<span class=\"python-str-prefix\">{spacer}{value[0]}</span>"
             self.html += f"<span class=\"python-str\">{value[1:]}</span>"
             updated = True
-
         return updated
 
     def get_span_class(self, token: TokenInfo, spacer: str) -> Tuple:
         """
-        Allocates the correct CSS class to the HTML span element
-        by using reflection to inspect the Pythn source code and
-        discover the type of token that was passed in using the <token>
-        parameter
+        Allocates the correct CSS class to a HTML span element
+        represnting the current token
 
         Args:
             token (TokenInfo): the token to inspect
@@ -175,11 +172,10 @@ class PythonParser():
 
     def parse(self) -> None:
         """
-        Parses the Python source code 1 token at a time, creating
+        Parses the Python source code one token at a time, creating
         HTML elements of each line and writing the result to the
         output file.
         """
-
         while True:
 
             token = next(self.tokens, None)
@@ -191,6 +187,7 @@ class PythonParser():
                 token_type = token_ids_new[token.type]
             else:
                 token_type = token_ids[token.type]
+
             token_value = token.string
             prev_token_start = None
             prev_token_length = None
@@ -235,6 +232,7 @@ class PythonParser():
                     token_type = token_ids_new[token.type]
                 else:
                     token_type = token_ids[token.type]
+
                 token_value = token.string
                 token_start = token.start[1]
 

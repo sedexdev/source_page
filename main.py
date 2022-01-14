@@ -12,7 +12,7 @@ from parser import PythonParser
 
 def get_args() -> argparse.Namespace:
     """
-    Gets command line arguments for the Python to parse
+    Gets command line arguments from the user
     """
     parser = argparse.ArgumentParser()
     parser.add_argument('-p', '--path', dest='path', help='The full path of the Python file to be parsed into HTML')
@@ -29,7 +29,7 @@ def get_args() -> argparse.Namespace:
     return args
 
 
-def python_updated():
+def python_updated() -> bool:
     """
     Checks the version of Python that was used to run the
     program so the correct list of token IDs can be
