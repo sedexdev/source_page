@@ -29,17 +29,6 @@ def get_args() -> argparse.Namespace:
     return args
 
 
-def get_platform() -> str:
-    """
-    Returns the OS platform for purposes of generating
-    the correct path for the output file
-
-    Returns:
-        Value of sys.platform
-    """
-    return sys.platform
-
-
 def python_updated():
     """
     Checks the version of Python that was used to run the
@@ -51,7 +40,7 @@ def python_updated():
         the updated token ID dictionary
     """
     version = platform.python_version_tuple()
-    if int(version[0]) >= 3 and int(version[1] >= 10):
+    if int(version[0]) >= 3 and int(version[1]) >= 10:
         return True
     return False
 
@@ -79,18 +68,17 @@ def main() -> None:
     Main function for the Python_HTML_Parser app
     """
     args = get_args()
-    platform = get_platform()
     is_updated = python_updated()
     print('\n[+] Writing HTML from Python source...')
     with open(args.path, 'r') as file:
         tokens = tokenize.generate_tokens(file.readline)
         python_parser = PythonParser(tokens, is_updated)
         html = python_parser.generate_html()
-        write_html_file(html, platform)
+        write_html_file(html, sys.platform)
         print('[+] Writing complete!')
-        if platform == "linux" or platform == "darwin":
+        if sys.platform == "linux" or sys.platform == "darwin":
             print(f'\n[+] You can find your file here: {args.path}/python_html.html\n')
-        elif platform == "win32":
+        elif sys.platform == "win32":
             print(f'\n[+] You can find your file here: {args.path}\python_html.html\n')
 
 
