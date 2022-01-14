@@ -7,7 +7,7 @@ import platform
 import sys
 import tokenize
 
-from parser import PythonParser
+from pytml_parser import PythonParser
 
 
 def get_args() -> argparse.Namespace:
