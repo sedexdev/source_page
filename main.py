@@ -9,6 +9,8 @@ import tokenize
 
 from pytml_parser import PythonParser
 
+ERROR = f"If you see this error, you need to run >= Python3.6 to run this program!"
+
 
 def get_args() -> argparse.Namespace:
     """
@@ -105,9 +107,6 @@ def main() -> None:
     """
     Main function for the Python_HTML_Parser app
     """
-    if not check_py_version(3, 6):
-        print("\n[-] You must be running Python3.6 or later to run this program")
-        return None
     args = get_args()
     is_updated = check_py_version(3, 10)
     print('\n[+] Writing HTML from Python source...')
