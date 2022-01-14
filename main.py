@@ -122,6 +122,7 @@ def main() -> None:
             path = get_output_path("\\", args)
         print(f'\n[+] You can find your file here: {path}python_html.html\n')
 
+
 if __name__ == '__main__':
     main()
 
