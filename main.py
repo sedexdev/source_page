@@ -3,13 +3,14 @@
 import argparse
 import os
 import pathlib
+import platform
 import sys
 import tokenize
 
 from parser import PythonParser
 
 
-def get_args() -> None:
+def get_args() -> argparse.Namespace:
     """
     Gets command line arguments for the Python to parse
     """
@@ -30,13 +31,29 @@ def get_args() -> None:
 
 def get_platform() -> str:
     """
-    Returns the current platform for purposes of generating
+    Returns the OS platform for purposes of generating
     the correct path for the output file
 
     Returns:
         Value of sys.platform
     """
     return sys.platform
+
+
+def python_updated():
+    """
+    Checks the version of Python that was used to run the
+    program so the correct list of token IDs can be
+    referrenced during parsing
+
+    Returns:
+        Boolean stating whether the program should use
+        the updated token ID dictionary
+    """
+    version = platform.python_version_tuple()
+    if int(version[0]) >= 3 and int(version[1] >= 10):
+        return True
+    return False
 
 
 def write_html_file(html: str, platform: str) -> None:
@@ -63,10 +80,11 @@ def main() -> None:
     """
     args = get_args()
     platform = get_platform()
+    is_updated = python_updated()
     print('\n[+] Writing HTML from Python source...')
     with open(args.path, 'r') as file:
         tokens = tokenize.generate_tokens(file.readline)
-        python_parser = PythonParser(tokens)
+        python_parser = PythonParser(tokens, is_updated)
         html = python_parser.generate_html()
         write_html_file(html, platform)
         print('[+] Writing complete!')

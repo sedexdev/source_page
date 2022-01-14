@@ -3,7 +3,8 @@ from typing import Iterable, Tuple
 from vars import (
     keywords,
     special_keywords,
-    token_ids
+    token_ids,
+    token_ids_new
 )
 
 
@@ -75,14 +76,17 @@ class PythonParser():
     }
     """
 
-    def __init__(self, tokens: Iterable) -> None:
+    def __init__(self, tokens: Iterable, is_updated: bool) -> None:
         """
         Constructor for the PythonParser class
 
         Args:
             tokens (Iterable): a list of tokens
+            is_updated (bool): states if Python version is using
+                               an updated token ID dictionary
         """
         self.tokens = tokens
+        self.is_updated = is_updated
         self.html = ""
         self.line_number = 1
 
@@ -183,8 +187,10 @@ class PythonParser():
             if not token or token.type == "ENDMARKER":
                 break
 
-            token_type = token_ids[token.type]
-            print(token_type)
+            if self.is_updated:
+                token_type = token_ids_new[token.type]
+            else:
+                token_type = token_ids[token.type]
             token_value = token.string
             prev_token_start = None
             prev_token_length = None
@@ -225,7 +231,10 @@ class PythonParser():
                 if not token or token_type == "ENDMARKER":
                     break
 
-                token_type = token_ids[token.type]
+                if self.is_updated:
+                    token_type = token_ids_new[token.type]
+                else:
+                    token_type = token_ids[token.type]
                 token_value = token.string
                 token_start = token.start[1]
 
