@@ -29,6 +29,26 @@ def get_args() -> argparse.Namespace:
     return args
 
 
+def check_py_version(major: int, minor: int) -> bool:
+    """
+    Checks the version of Python that was used to run the
+    program to see if it is greater than or equal to the
+    values passed in
+
+    Args:
+        major (int): the major release version
+        minor (int): the minor release version
+
+    Returns:
+        Boolean stating whether the Python version meets
+        the values in the parameters
+    """
+    version = platform.python_version_tuple()
+    if int(version[0]) >= major and int(version[1]) >= minor:
+        return True
+    return False
+
+
 def python_updated() -> bool:
     """
     Checks the version of Python that was used to run the
@@ -68,7 +88,9 @@ def main() -> None:
     Main function for the Python_HTML_Parser app
     """
     args = get_args()
-    is_updated = python_updated()
+    if not check_py_version(3, 6):
+        print("\n[-] You must be running Python3.6 or later to run this program")
+    is_updated = check_py_version(3, 10)
     print('\n[+] Writing HTML from Python source...')
     with open(args.path, 'r') as file:
         tokens = tokenize.generate_tokens(file.readline)
