@@ -1,5 +1,6 @@
 from tokenize import TokenInfo
 from typing import Iterable, Tuple
+
 from vars import (
     keywords,
     special_keywords,
@@ -79,7 +80,6 @@ class PythonParser():
     def __init__(self, tokens: Iterable, is_updated: bool) -> None:
         """
         Constructor for the PythonParser class
-
         Args:
             tokens (Iterable): a list of tokens
             is_updated (bool): states if Python version is using
@@ -94,11 +94,9 @@ class PythonParser():
         """
         Inspect a token value of type string to check if it has a
         prefix or contains escaped characters.
-
         Args:
             value (str): the string value of this token
             spacer (str): whitespace to add to the span element
-
         Returns:
             Boolean defining whether a string prefix has been added
         """
@@ -115,7 +113,6 @@ class PythonParser():
         """
         Allocates the correct CSS class to a HTML span element
         represnting the current token
-
         Args:
             token (TokenInfo): the token to inspect
             spacer (str): whitespace to add to a span element
@@ -148,7 +145,6 @@ class PythonParser():
         """
         Create a code block and span element to represent a
         comment from the Python source code
-
         Args:
             start (int): starting column of comment
             value (str): string value of the token
@@ -273,7 +269,6 @@ class PythonParser():
         """
         Generates the HTML represention of the Python source
         code
-
         Returns:
             Value of self.html
         """

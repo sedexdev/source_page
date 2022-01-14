@@ -5,7 +5,7 @@ __pycache__/
 
 # .swp files
 .main.py.swp
-.parser.py.swp
+.pytml_parser.py.swp
 .vars.py.swp
 
 # HTML Output File
