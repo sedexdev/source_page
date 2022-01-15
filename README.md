@@ -14,6 +14,8 @@ can add to a Web page.
 
 The HTML file will be saved in the current working directory.
 
+<b>NOTE</b>: This program requires <b>Python3.6</b> or later 
+
 In time this app should be available on <a href="https://pypi.org/">PyPI</a>
 
 # License
