@@ -89,6 +89,10 @@ def main() -> None:
     """
     Main function for the Python_HTML_Parser app
     """
+    if not check_python_version(3, 6):
+        print("\n[-] This program requires Python3.6 or later!")
+        print("[-] Please upgrade now!\n")
+        return
     args = get_args()
     is_updated = check_py_version(3, 10)
     print('\n[+] Writing HTML from Python source...')
