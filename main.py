@@ -9,8 +9,6 @@ import tokenize
 
 from pytml_parser import PythonParser
 
-ERROR = f"If you see this error, you need to run >= Python3.6 to run this program!"
-
 
 def get_args() -> argparse.Namespace:
     """
@@ -27,7 +25,7 @@ def get_args() -> argparse.Namespace:
         parser.error('\n[-] Please provide the absolute path for the file')
     suffix = pathlib.Path(args.path).suffix
     if not suffix == '.py':
-        parser.error(f'\n[-] Expected a Python (.py) file, not {suffix} file type')
+        parser.error('\n[-] Expected a Python (.py) file, not {} file type'.format(suffix))
     return args
 
 
@@ -51,22 +49,6 @@ def check_py_version(major: int, minor: int) -> bool:
     return False
 
 
-def python_updated() -> bool:
-    """
-    Checks the version of Python that was used to run the
-    program so the correct list of token IDs can be
-    referrenced during parsing
-
-    Returns:
-        Boolean stating whether the program should use
-        the updated token ID dictionary
-    """
-    version = platform.python_version_tuple()
-    if int(version[0]) >= 3 and int(version[1]) >= 10:
-        return True
-    return False
-
-
 def get_output_path(delimiter: str, args: argparse.Namespace) -> str:
     """
     Creates a string represntation of the absolute path
@@ -82,7 +64,7 @@ def get_output_path(delimiter: str, args: argparse.Namespace) -> str:
     path_list = args.path.split(delimiter)
     path_dir = path_list[:len(path_list)-1]
     path = delimiter.join([x for x in path_dir])
-    return f"{path}{delimiter}"
+    return "{path}{delimiter}".format(path=path, delimiter=delimiter)
 
 
 def write_html_file(html: str, platform: str) -> None:
@@ -96,10 +78,10 @@ def write_html_file(html: str, platform: str) -> None:
     """
     base_dir = os.path.abspath(os.path.dirname(__file__))
     if platform == "linux" or platform == "darwin":
-        with open(f'{base_dir}/python_html.html', 'w+') as file:
+        with open('{}/python_html.html'.format(base_dir), 'w+') as file:
             file.write(html)
     elif platform == "win32":
-        with open(f'{base_dir}\python_html.html', 'w+') as file:
+        with open('{}\python_html.html'.format(base_dir), 'w+') as file:
             file.write(html)
 
 
@@ -120,7 +102,7 @@ def main() -> None:
             path = get_output_path("/", args)
         elif sys.platform == "win32":
             path = get_output_path("\\", args)
-        print(f'\n[+] You can find your file here: {path}python_html.html\n')
+        print('\n[+] You can find your file here: {}python_html.html\n'.format(path))
 
 
 if __name__ == '__main__':

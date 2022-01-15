@@ -104,8 +104,8 @@ class PythonParser():
         if value[0] in ["r", "u", "R", "U", "f", "F", "fr", "Fr", "fR", "FR",
                         "rf", "rF", "Rf", "RF", "b", "B", "br", "Br", "bR",
                         "BR", "rb", "rB", "Rb", "RB"]:
-            self.html += f"<span class=\"python-str-prefix\">{spacer}{value[0]}</span>"
-            self.html += f"<span class=\"python-str\">{value[1:]}</span>"
+            self.html += "<span class=\"python-str-prefix\">{spacer}{value}</span>".format(spacer=spacer, value=value[0])
+            self.html += "<span class=\"python-str\">{}</span>".format(value[1:])
             updated = True
         return updated
 
@@ -137,9 +137,9 @@ class PythonParser():
         Adds a line number in a span element
         """
         if self.line_number < 10:
-            self.html += f"<span class='line-number'>&nbsp;{self.line_number}. </span>"
+            self.html += "<span class='line-number'>&nbsp;{}.</span>".format(self.line_number)
         else:
-            self.html += f"<span class='line-number'>{self.line_number}. </span>"
+            self.html += "<span class='line-number'>{}.</span>".format(self.line_number)
 
     def handle_comment(self, start: int, value: str) -> None:
         """
@@ -152,7 +152,7 @@ class PythonParser():
         self.html += "<code class=\"code-line\">"
         self.add_line_number()
         spacer = "&nbsp;" * start
-        self.html += f"<span class=\"python-comment\">{spacer}{value}</span>"
+        self.html += "<span class=\"python-comment\">{spacer}{value}</span>".format(spacer=spacer, value=value)
         self.html += "</code>"
         self.line_number += 1
 
@@ -215,7 +215,10 @@ class PythonParser():
 
                 span_class, updated = self.get_span_class(token, spacer)
                 if not updated:
-                    self.html += f"<span class=\"{span_class}\">{spacer}{token_value}</span>"
+                    self.html += "<span class=\"{span_class}\">{spacer}{token_value}</span>" \
+                        .format(span_class=span_class,
+                                spacer=spacer,
+                                token_value=token_value)
                 prev_token_start = token_start
                 prev_token_length = len(str(token_value))
 
@@ -239,7 +242,7 @@ class PythonParser():
         """
         Adds the metadata to the HTML string
         """
-        self.html += f"""
+        self.html += """
         <!DOCTYPE html>
         <html lang="en">
         <head>
@@ -248,12 +251,12 @@ class PythonParser():
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Python HTML</title>
             <style>
-                {self.CSS}
+                {}
             </style>
         </head>
         <body>
             <div class="code-block python-code-block">
-        """
+        """.format(self.CSS)
 
     def close_html(self) -> None:
         """
