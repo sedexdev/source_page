@@ -51,7 +51,7 @@ def check_py_version(major: int, minor: int) -> bool:
 
 def get_output_path(delimiter: str, args: argparse.Namespace) -> str:
     """
-    Creates a string represntation of the absolute path
+    Creates a string representation of the absolute path
     for the parent directory of the HTML output file
 
     Args:
@@ -67,21 +67,21 @@ def get_output_path(delimiter: str, args: argparse.Namespace) -> str:
     return "{path}{delimiter}".format(path=path, delimiter=delimiter)
 
 
-def write_html_file(html: str, platform: str) -> None:
+def write_html_file(html: str, plat: str) -> None:
     """
     Writes the html content generated from the PythonParser
     to a file and saves it in the current directory
 
     Args:
         html (str): the html to write to file
-        platform (str): the platform the program is running on
+        plat (str): the platform the program is running on
     """
     base_dir = os.path.abspath(os.path.dirname(__file__))
-    if platform == "linux" or platform == "darwin":
+    if plat == "linux" or plat == "darwin":
         with open('{}/python_html.html'.format(base_dir), 'w+') as file:
             file.write(html)
-    elif platform == "win32":
-        with open('{}\python_html.html'.format(base_dir), 'w+') as file:
+    elif plat == "win32":
+        with open('{}\\python_html.html'.format(base_dir), 'w+') as file:
             file.write(html)
 
 
