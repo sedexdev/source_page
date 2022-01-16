@@ -97,8 +97,10 @@ def main() -> None:
     is_updated = check_py_version(3, 10)
     print('\n[+] Writing HTML from Python source...')
     with open(args.path, 'r') as file:
+        lines = file.readlines()
+    with open(args.path, 'r') as file:
         tokens = tokenize.generate_tokens(file.readline)
-        python_parser = PythonParser(tokens, is_updated)
+        python_parser = PythonParser(tokens, is_updated, len(lines))
         html = python_parser.generate_html()
         write_html_file(html, sys.platform)
         print('[+] Writing complete!')
