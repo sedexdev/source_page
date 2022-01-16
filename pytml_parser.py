@@ -405,4 +405,3 @@ class PythonParser():
         self.parse()
         self.close_html()
         return self.html
-
