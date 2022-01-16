@@ -18,6 +18,10 @@ The HTML file will be saved in the current working directory.
 
 In time this app should be available on <a href="https://pypi.org/">PyPI</a>
 
+# Sample Output
+
+![Sample HTML Output](/imgs/sample.png)
+
 # License
 
 <a href="https://github.com/sedexdev/python_html_parser/blob/main/LICENSE">M.I.T</a>
