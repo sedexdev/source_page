@@ -11,6 +11,9 @@ __pycache__/
 # HTML Output File
 python_html.html
 
+# JetBrains
+/.idea
+
 # C extensions
 *.so
 
