@@ -233,7 +233,7 @@ class PythonParser():
                 self.handle_multi_line_str(value[1:], spacer)
                 return True
             else:
-                self.html += "<span class=\"python-str\">{spacer}{value}</span>".format(spacer=spacer, value=value)
+                self.html += "<span class=\"python-str\">{value}</span>".format(spacer=spacer, value=value[1:])
                 return False
         else:
             if self.is_multi_line(value):
