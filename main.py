@@ -64,7 +64,7 @@ def get_output_path(delimiter: str, args: argparse.Namespace) -> str:
     path_list = args.path.split(delimiter)
     path_dir = path_list[:len(path_list)-1]
     path = delimiter.join([x for x in path_dir])
-    return "{path}{delimiter}".format(path=path, delimiter=delimiter)
+    return "{x}{y}".format(x=path, y=delimiter)
 
 
 def write_html_file(html: str, plat: str) -> None:
