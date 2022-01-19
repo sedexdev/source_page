@@ -1,5 +1,6 @@
 from tokenize import TokenInfo
-from typing import Iterable, Tuple
+from typing import Tuple
+from _typeshed import SupportsNext
 
 from vars import (
     keywords,
@@ -133,12 +134,12 @@ class PythonParser:
     }
     """
 
-    def __init__(self, tokens: Iterable, is_updated: bool, file_length: int) -> None:
+    def __init__(self, tokens: SupportsNext, is_updated: bool, file_length: int) -> None:
         """
         Constructor for the PythonParser class
 
         Args:
-            tokens (Iterable): a list of tokens
+            tokens (SupportsNext): a list of tokens
             is_updated (bool): states if Python version is using
                                an updated token ID dictionary
             file_length (int): number of lines in the file
@@ -315,6 +316,9 @@ class PythonParser:
             first = True
 
             while token_type != "NEWLINE":
+
+                if token_type == "NL":
+                    break
 
                 if first:
                     spacer = "&nbsp;" * token_start
