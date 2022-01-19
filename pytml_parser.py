@@ -1,6 +1,5 @@
 from tokenize import TokenInfo
-from typing import Tuple
-from _typeshed import SupportsNext
+from typing import Iterator, Tuple
 
 from vars import (
     keywords,
@@ -134,7 +133,7 @@ class PythonParser:
     }
     """
 
-    def __init__(self, tokens: SupportsNext, is_updated: bool, file_length: int) -> None:
+    def __init__(self, tokens: Iterator, is_updated: bool, file_length: int) -> None:
         """
         Constructor for the PythonParser class
 
@@ -178,9 +177,9 @@ class PythonParser:
             else:
                 self.html += "<span class='line-number'>{}.</span>".format(self.line_number)
 
-    def delete_html(self) -> None:
+    def delete_line(self) -> None:
         """
-        Delete the last 2 lines added to the self.html string in
+        Delete the last code line added to the self.html string in
         the case that a multi-line string has been found. This
         stops nested code lines and allows the multi-line
         string to be added on separate lines, as it appears
@@ -189,7 +188,7 @@ class PythonParser:
         last_code_line = self.html.rfind("<c")
         self.html = self.html[:last_code_line]
 
-    def handle_multi_line_str(self, value: str, spacer: str) -> None:
+    def handle_multi_line_str(self, value: str, spacer: str, inline=False) -> None:
         """
         Create a series of code blocks representing a multi-line
         string in the source code with preserved indentation
@@ -197,11 +196,13 @@ class PythonParser:
         Args:
             value (str): The string value to process
             spacer (str): amount of whitespace to add
+            inline (bool): states that this string is inline with
+                           other code on the same line
         """
         first = True
         string_split = value.split("\n")
         for s in string_split:
-            if first:
+            if first and not inline:
                 total_spacer = spacer
                 first = False
             else:
@@ -218,7 +219,7 @@ class PythonParser:
             self.html += "</code>"
             self.line_number += 1
 
-    def handle_string(self, value: str, prefixed: bool, spacer: str) -> bool:
+    def handle_string(self, value: str, prev_value: str, prefixed: bool, spacer: str) -> bool:
         """
         Adds a string token to the HTML file by checking to
         see if the string has a prefix, is a multi-line string,
@@ -226,6 +227,7 @@ class PythonParser:
 
         Args:
             value (str): token string value
+            prev_value (str): value of the previous token
             prefixed (bool): states whether the string is prefixed
             spacer (str): amount of whitespace to add
         """
@@ -233,7 +235,14 @@ class PythonParser:
             self.html += "<span class=\"python-str-prefix\">{x}{y}</span>".format(x=spacer, y=value[0])
             value = value[1:]
         if is_multi_line(value):
-            self.delete_html()
+            if prev_value == "=":
+                first_str = value.split("\n")[0]
+                self.html += "<span class=\"python-str\">{x}{y}</span>".format(x=spacer, y=first_str)
+                self.html += "</code>"
+                self.line_number += 1
+                self.handle_multi_line_str(value[len(first_str)+1:], spacer, True)
+                return True
+            self.delete_line()
             self.handle_multi_line_str(value, spacer)
             return True
         else:
@@ -290,6 +299,7 @@ class PythonParser:
                 token_type = token_ids[token.type]
 
             token_value = token.string
+            prev_token_value = None
             prev_token_start = None
             prev_token_length = None
             parse_broken = False
@@ -329,7 +339,7 @@ class PythonParser:
                 span_class, prefixed = get_span_class(token)
 
                 if token_type == "STRING":
-                    break_parse = self.handle_string(token_value, prefixed, spacer)
+                    break_parse = self.handle_string(token_value, prev_token_value, prefixed, spacer)
                     if break_parse:
                         parse_broken = True
                         prev_token_was_multi_line = True
@@ -337,6 +347,7 @@ class PythonParser:
                 elif not prefixed:
                     self.html += "<span class=\"{x}\">{y}{z}</span>".format(x=span_class, y=spacer, z=token_value)
 
+                prev_token_value = token_value
                 prev_token_start = token_start
                 prev_token_length = len(str(token_value))
 
