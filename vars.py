@@ -25,7 +25,7 @@ special_keywords = [
     "except",
     "finally",
     "raise",
-	"class",
+    "class",
     "for",
     "while",
     "assert",
