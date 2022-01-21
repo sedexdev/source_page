@@ -50,8 +50,9 @@ def get_args() -> argparse.Namespace:
     suffix = pathlib.Path(args.path).suffix
     if not suffix == '.py':
         parser.error('\n\n[-] Expected a Python (.py) file, not {} file type\n'.format(suffix))
-    if args.theme and args.theme not in theme_list():
-        parser.error("\n\n[-] {} is an unknown theme. See --help for options\n".format(args.theme))
+    theme = args.theme
+    if theme and theme not in theme_list():
+        parser.error("\n\n[-] Unknown theme: {}. See https://github.com/sedexdev/pytml for themes\n".format(theme))
     return args
 
 
@@ -88,7 +89,7 @@ def get_output_path(delimiter: str, args: argparse.Namespace) -> str:
         A string of the parent directory for the HTML file
     """
     path_list = args.path.split(delimiter)
-    path_dir = path_list[:len(path_list)-1]
+    path_dir = path_list[:len(path_list) - 1]
     path = delimiter.join([x for x in path_dir])
     return "{x}{y}".format(x=path, y=delimiter)
 
