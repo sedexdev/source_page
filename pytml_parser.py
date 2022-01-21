@@ -102,7 +102,7 @@ class PythonParser:
         max_lines_len = len(str(max_lines))
         line_num_len = len(str(self.line_number))
         spacer = "&nbsp;" * (max_lines_len - line_num_len)
-        self.html += "<span class='line-number'>{x}{y}.</span>".format(x=spacer, y=self.line_number)
+        self.html += "<span class='line-number'>{x}{y}.&nbsp;</span>".format(x=spacer, y=self.line_number)
 
     def add_line_number(self) -> None:
         """
