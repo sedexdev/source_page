@@ -16,7 +16,7 @@ def theme_list():
     Return a list of all available themes from
     themes.py
     """
-    return ["COOL_BLUE_LIGHT", "RANDOM"]
+    return ["COOL_BLUE_LIGHT", "CYBER", "ROBOT", "ROBOT_LIGHT"]
 
 
 def get_theme(theme) -> str:
@@ -26,7 +26,9 @@ def get_theme(theme) -> str:
     """
     theme_dict = {
         "COOL_BLUE_LIGHT": themes.COOL_BLUE_LIGHT,
-        "RANDOM": themes.RANDOM
+        "CYBER": themes.CYBER,
+        "ROBOT": themes.ROBOT,
+        "ROBOT_LIGHT": themes.ROBOT_LIGHT
     }
     return theme_dict[theme]
 
