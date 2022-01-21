@@ -151,13 +151,8 @@ class PythonParser:
                 total_spacer = spacer
                 first = False
             else:
-                whitespace = 0
-                if len(s) > 0:
-                    i = 0
-                    while s[i].isspace():
-                        whitespace += 1
-                        i += 1
-                total_spacer = "&nbsp;" * (whitespace - 1)
+                whitespace = len(s) - (len(s.lstrip(" ")))
+                total_spacer = "&nbsp;" * (whitespace-1)
             self.html += "<code class=\"code-line\">"
             self.add_line_number()
             self.html += "<span class=\"python-str\">{x}{y}</span>".format(x=total_spacer, y=s)
