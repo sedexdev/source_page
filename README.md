@@ -31,7 +31,9 @@ Available Themes:
     <li>ROBOT_LIGHT </li>
 </ul>
 
-# Sample Output (COOL_BLUE)
+# Sample Output
+
+Sample using default theme 'COOL_BLUE'
 
 ![Sample HTML Output](/imgs/sample.png)
 
