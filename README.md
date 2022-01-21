@@ -29,7 +29,7 @@ Available Themes:
     <li>ROBOT_LIGHT </li>
 </ul>
 
-# Sample Output
+# Sample Output (COOL_BLUE)
 
 ![Sample HTML Output](/imgs/sample.png)
 
