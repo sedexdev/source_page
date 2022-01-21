@@ -149,33 +149,34 @@ class PythonParser:
         self.html = ""
         self.line_number = 1
 
+    def add_line_helper(self, max_lines: int) -> None:
+        """
+        Adds the line number in a span element
+
+        Args:
+            max_lines (int): maximum number of lines
+        """
+        max_lines_len = len(str(max_lines))
+        line_num_len = len(str(self.line_number))
+        spacer = "&nbsp;" * (max_lines_len - line_num_len)
+        self.html += "<span class='line-number'>{x}{y}.</span>".format(x=spacer, y=self.line_number)
+
     def add_line_number(self) -> None:
         """
-        Adds a line number in a span element
+        Assesses the file length and calls the helper
+        function with the appropriate parameters for
+        a file with self.file_length many lines
         """
         if self.file_length < 10:
-            self.html += "<span class='line-number'>{}.</span>".format(self.line_number)
+            self.add_line_helper(9)
         elif self.file_length < 100:
-            if self.line_number < 10:
-                self.html += "<span class='line-number'>&nbsp;{}.</span>".format(self.line_number)
-            else:
-                self.html += "<span class='line-number'>{}.</span>".format(self.line_number)
+            self.add_line_helper(99)
         elif self.file_length < 1000:
-            if self.line_number < 10:
-                self.html += "<span class='line-number'>&nbsp;&nbsp;{}.</span>".format(self.line_number)
-            elif self.line_number < 100:
-                self.html += "<span class='line-number'>&nbsp;{}.</span>".format(self.line_number)
-            else:
-                self.html += "<span class='line-number'>{}.</span>".format(self.line_number)
+            self.add_line_helper(999)
         elif self.file_length < 10000:
-            if self.line_number < 10:
-                self.html += "<span class='line-number'>&nbsp;&nbsp;&nbsp;{}.</span>".format(self.line_number)
-            elif self.line_number < 100:
-                self.html += "<span class='line-number'>&nbsp;&nbsp;{}.</span>".format(self.line_number)
-            elif self.line_number < 1000:
-                self.html += "<span class='line-number'>&nbsp;{}.</span>".format(self.line_number)
-            else:
-                self.html += "<span class='line-number'>{}.</span>".format(self.line_number)
+            self.add_line_helper(9999)
+        else:
+            self.add_line_helper(99999)
 
     def delete_line(self) -> None:
         """
