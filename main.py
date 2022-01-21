@@ -18,14 +18,14 @@ def get_args() -> argparse.Namespace:
     parser.add_argument('-p', '--path', dest='path', help='The full path of the Python file to be parsed into HTML')
     args = parser.parse_args()
     if not args.path:
-        parser.error('\n[-] Expected a file to parse')
+        parser.error('\n\n[-] Expected a file to parse\n')
     if not os.path.isfile(args.path):
-        parser.error('\n[-] File not found')
+        parser.error('\n\n[-] File not found\n')
     if not os.path.isabs(args.path):
-        parser.error('\n[-] Please provide the absolute path for the file')
+        parser.error('\n\n[-] Please provide the absolute path for the file\n')
     suffix = pathlib.Path(args.path).suffix
     if not suffix == '.py':
-        parser.error('\n[-] Expected a Python (.py) file, not {} file type'.format(suffix))
+        parser.error('\n\n[-] Expected a Python (.py) file, not {} file type\n'.format(suffix))
     return args
 
 
