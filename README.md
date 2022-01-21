@@ -21,7 +21,7 @@ The HTML file will be saved in the current working directory.
 <code>-t, --theme</code>: The syntax highlighting theme</code>
 </br>
 <code>-o, --out</code>: Send output to stdout rather than a file
-</br>
+</br></br>
 Available Themes:
 <ul>
     <li>COOL_BLUE (default)</li>
