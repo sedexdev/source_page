@@ -38,7 +38,12 @@ def get_args() -> argparse.Namespace:
     Gets command line arguments from the user
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument('-p', '--path', dest='path', help='The full path of the Python file to be parsed into HTML')
+    parser.add_argument(
+        '-p',
+        '--path',
+        dest='path',
+        required=True,
+        help='The full path of the Python file to be parsed into HTML')
     parser.add_argument('-t', '--theme', dest='theme', help='Syntax highlighting theme to use. Defaults to COOL_BLUE')
     parser.add_argument('-o', '--out', action='store_true', help='Send the output to stdout, not a file')
     args = parser.parse_args()
