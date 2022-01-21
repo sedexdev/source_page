@@ -1,7 +1,6 @@
+from themes import COOL_BLUE
 from tokenize import TokenInfo
 from typing import Iterator, Tuple
-
-from themes import COOL_BLUE
 
 from vars import (
     keywords,

@@ -5,9 +5,30 @@ import os
 import pathlib
 import platform
 import sys
+import themes
 import tokenize
 
 from pytml_parser import PythonParser
+
+
+def theme_list():
+    """
+    Return a list of all available themes from
+    themes.py
+    """
+    return ["COOL_BLUE_LIGHT", "RANDOM"]
+
+
+def get_theme(theme) -> str:
+    """
+    Get the theme from themes.py based on argument
+    passed in by the user for --theme
+    """
+    theme_dict = {
+        "COOL_BLUE_LIGHT": themes.COOL_BLUE_LIGHT,
+        "RANDOM": themes.RANDOM
+    }
+    return theme_dict[theme]
 
 
 def get_args() -> argparse.Namespace:
@@ -16,6 +37,7 @@ def get_args() -> argparse.Namespace:
     """
     parser = argparse.ArgumentParser()
     parser.add_argument('-p', '--path', dest='path', help='The full path of the Python file to be parsed into HTML')
+    parser.add_argument('-t', '--theme', dest='theme', help='Syntax highlighting theme to use. Defaults to COOL_BLUE')
     args = parser.parse_args()
     if not args.path:
         parser.error('\n\n[-] Expected a file to parse\n')
@@ -26,6 +48,8 @@ def get_args() -> argparse.Namespace:
     suffix = pathlib.Path(args.path).suffix
     if not suffix == '.py':
         parser.error('\n\n[-] Expected a Python (.py) file, not {} file type\n'.format(suffix))
+    if args.theme and args.theme not in theme_list():
+        parser.error("\n\n[-] {} is an unknown theme. See --help for options\n".format(args.theme))
     return args
 
 
@@ -100,7 +124,11 @@ def main() -> None:
         lines = file.readlines()
     with open(args.path, 'r') as file:
         tokens = tokenize.generate_tokens(file.readline)
-        python_parser = PythonParser(tokens, is_updated, len(lines))
+        if args.theme:
+            theme = get_theme(args.theme)
+            python_parser = PythonParser(tokens, is_updated, len(lines), theme)
+        else:
+            python_parser = PythonParser(tokens, is_updated, len(lines))
         html = python_parser.generate_html()
         write_html_file(html, sys.platform)
         print('[+] Writing complete!')
