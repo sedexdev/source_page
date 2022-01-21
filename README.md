@@ -19,7 +19,9 @@ The HTML file will be saved in the current working directory.
 <code>-p, --path</code>: The absolute path of the Python source file to parse (**required**)
 </br>
 <code>-t, --theme</code>: The syntax highlighting theme</code>
-</br></br>
+</br>
+<code>-o, --out</code>: Send output to stdout rather than a file
+</br>
 Available Themes:
 <ul>
     <li>COOL_BLUE (default)</li>

@@ -16,7 +16,7 @@ def theme_list():
     Return a list of all available themes from
     themes.py
     """
-    return ["COOL_BLUE_LIGHT", "CYBER", "ROBOT", "ROBOT_LIGHT"]
+    return ["cool_blue_light", "cyber", "robot", "robot_light"]
 
 
 def get_theme(theme) -> str:
@@ -25,10 +25,10 @@ def get_theme(theme) -> str:
     passed in by the user for --theme
     """
     theme_dict = {
-        "COOL_BLUE_LIGHT": themes.COOL_BLUE_LIGHT,
-        "CYBER": themes.CYBER,
-        "ROBOT": themes.ROBOT,
-        "ROBOT_LIGHT": themes.ROBOT_LIGHT
+        "cool_blue_light": themes.COOL_BLUE_LIGHT,
+        "cyber": themes.CYBER,
+        "robot": themes.ROBOT,
+        "robot_light": themes.ROBOT_LIGHT
     }
     return theme_dict[theme]
 
@@ -40,6 +40,7 @@ def get_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument('-p', '--path', dest='path', help='The full path of the Python file to be parsed into HTML')
     parser.add_argument('-t', '--theme', dest='theme', help='Syntax highlighting theme to use. Defaults to COOL_BLUE')
+    parser.add_argument('-o', '--out', action='store_true', help='Send the output to stdout, not a file')
     args = parser.parse_args()
     if not args.path:
         parser.error('\n\n[-] Expected a file to parse\n')
@@ -51,7 +52,7 @@ def get_args() -> argparse.Namespace:
     if not suffix == '.py':
         parser.error('\n\n[-] Expected a Python (.py) file, not {} file type\n'.format(suffix))
     theme = args.theme
-    if theme and theme not in theme_list():
+    if theme and theme.lower() not in theme_list():
         parser.error("\n\n[-] Unknown theme: {}. See https://github.com/sedexdev/pytml for themes\n".format(theme))
     return args
 
@@ -122,24 +123,27 @@ def main() -> None:
         return
     args = get_args()
     is_updated = check_py_version(3, 10)
-    print('\n[+] Writing HTML from Python source...')
     with open(args.path, 'r') as file:
         lines = file.readlines()
     with open(args.path, 'r') as file:
         tokens = tokenize.generate_tokens(file.readline)
         if args.theme:
-            theme = get_theme(args.theme)
+            theme = get_theme(args.theme.lower())
             python_parser = PythonParser(tokens, is_updated, len(lines), theme)
         else:
             python_parser = PythonParser(tokens, is_updated, len(lines))
         html = python_parser.generate_html()
-        write_html_file(html, sys.platform)
-        print('[+] Writing complete!')
-        if sys.platform == "linux" or sys.platform == "darwin":
-            path = get_output_path("/", args)
-        elif sys.platform == "win32":
-            path = get_output_path("\\", args)
-        print('\n[+] You can find your file here: {}python_html.html\n'.format(path))
+        if args.out:
+            print(html)
+        else:
+            print('\n[+] Writing HTML from Python source...')
+            if sys.platform == "linux" or sys.platform == "darwin":
+                path = get_output_path("/", args)
+            elif sys.platform == "win32":
+                path = get_output_path("\\", args)
+            write_html_file(html, sys.platform)
+            print('[+] Writing complete!')
+            print('\n[+] You can find your file here: {}python_html.html\n'.format(path))
 
 
 if __name__ == '__main__':
