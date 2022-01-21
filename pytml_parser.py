@@ -1,6 +1,8 @@
 from tokenize import TokenInfo
 from typing import Iterator, Tuple
 
+from themes import COOL_BLUE
+
 from vars import (
     keywords,
     special_keywords,
@@ -73,67 +75,7 @@ class PythonParser:
     from the result
     """
 
-    CSS = """
-    .code {
-        font-weight: bold;
-    }
-    .code-block {
-        display: flex;
-        flex-direction: column;
-        background-color: lightgrey;
-        border: 1px dashed #333;
-        text-align: left;
-        font-size: 1.1rem;
-        overflow-x: scroll;
-        white-space: nowrap;
-        padding: 20px;
-    }
-    .code-line {
-        margin: 3px 0;
-    }
-    .python-code-block {
-        background-color: #333;
-        margin: 40px 0;
-    }
-    .python-class,
-    .python-txt,
-    .python-func,
-    .python-op,
-    .python-str,
-    .python-str-prefix,
-    .python-keyword,
-    .python-special-keyword,
-    .python-comment,
-    .line-number {
-        font-size: 1.1rem;
-    }
-    .python-txt {
-        color: skyblue;
-    }
-    .python-op {
-        color: #fff;
-    }
-    .python-str {
-        color: tomato;
-    }
-    .python-str-prefix {
-        color: orange;
-    }
-    .python-keyword {
-        color: rgb(87, 62, 245);
-    }
-    .python-special-keyword {
-        color: rgb(159, 66, 253);
-    }
-    .python-comment {
-        color: rgb(25, 129, 25);
-    }
-    .line-number {
-        color: #666;
-    }
-    """
-
-    def __init__(self, tokens: Iterator, is_updated: bool, file_length: int) -> None:
+    def __init__(self, tokens: Iterator, is_updated: bool, file_length: int, theme=COOL_BLUE) -> None:
         """
         Constructor for the PythonParser class
 
@@ -142,10 +84,12 @@ class PythonParser:
             is_updated (bool): states if Python version is using
                                an updated token ID dictionary
             file_length (int): number of lines in the file
+            theme (str): colour scheme for syntax highlighting
         """
         self.tokens = tokens
         self.is_updated = is_updated
         self.file_length = file_length
+        self.theme = theme
         self.html = ""
         self.line_number = 1
 
@@ -387,7 +331,7 @@ class PythonParser:
         </head>
         <body>
             <div class="code-block python-code-block">
-        """.format(self.CSS)
+        """.format(self.theme)
 
     def close_html(self) -> None:
         """
