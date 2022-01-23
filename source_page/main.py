@@ -58,7 +58,7 @@ def get_args() -> argparse.Namespace:
         parser.error('\n\n[-] Expected a Python (.py) file, not {} file type\n'.format(suffix))
     theme = args.theme
     if theme and theme.lower() not in theme_list():
-        parser.error("\n\n[-] Unknown theme: {}. See https://github.com/sedexdev/pytml for themes\n".format(theme))
+        parser.error("\n\n[-] Unknown theme: {}. See https://github.com/sedexdev/source_page for more\n".format(theme))
     return args
 
 
@@ -111,10 +111,10 @@ def write_html_file(html: str, plat: str) -> None:
     """
     base_dir = os.path.abspath(os.path.dirname(__file__))
     if plat == "linux" or plat == "darwin":
-        with open('{}/python_html.html'.format(base_dir), 'w+') as file:
+        with open('{}/python_html.html'.format(base_dir), 'w') as file:
             file.write(html)
     elif plat == "win32":
-        with open('{}\\python_html.html'.format(base_dir), 'w+') as file:
+        with open('{}\\python_html.html'.format(base_dir), 'w') as file:
             file.write(html)
 
 
