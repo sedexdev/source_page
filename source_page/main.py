@@ -110,7 +110,6 @@ def write_html_file(html: str, plat: str) -> None:
         plat (str): the platform the program is running on
     """
     base_dir = os.getcwd()
-    print(plat)
     if plat == "linux" or plat == "darwin":
         with open('{}/python_html.html'.format(base_dir), 'w') as file:
             file.write(html)
