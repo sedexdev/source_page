@@ -35,7 +35,7 @@ Available Themes:
 
 Sample using default theme 'COOL_BLUE'
 
-![Sample HTML Output](/imgs/sample.png)
+![Sample HTML Output](/source_page/imgs/sample.png)
 
 # License
 
