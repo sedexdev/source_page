@@ -1,14 +1,14 @@
 from setuptools import setup
 
 setup(
-    name='pytml',
+    name='source_page',
     version='1.0.0',
     description='Parses Python source code into syntax highlighted HTML',
-    url='https://github.com/sedexdev/pytml',
+    url='https://github.com/sedexdev/source_page',
     author='Andrew Macmillan',
     author_email='sedexdev@protonmail.com',
     license='MIT',
-    packages=['pytml'],
+    packages=['source_page'],
 
     classifiers=[
         'Development Status :: 3 - Alpha',
