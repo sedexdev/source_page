@@ -8,7 +8,7 @@ import sys
 import themes
 import tokenize
 
-from pytml_parser import PythonParser
+from source_parser import PythonParser
 
 
 def theme_list():
