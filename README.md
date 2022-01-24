@@ -16,7 +16,7 @@ The HTML file will be saved in the current working directory.
 
 # Options
 
-<code>-h</code>: Show the options
+<code>-h, --help</code>: Show the options
 </br>
 <code>-p, --path</code>: The absolute path of the Python source file to parse (**required**)
 </br>
