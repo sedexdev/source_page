@@ -1,4 +1,4 @@
-# Python HTML Parser
+# SourcePage: A Python parser that creates HTML pages
 
 Parses Python source code and produces a colour-coded HTML representation of the code. This app uses
 the <a href="https://docs.python.org/3/library/tokenize.html">tokenize</a>
