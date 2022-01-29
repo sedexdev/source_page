@@ -105,6 +105,21 @@ def get_output_path(delimiter: str, args: argparse.Namespace) -> str:
     return "{x}{y}".format(x=path, y=delimiter)
 
 
+def pretty_html(html: str) -> str:
+    """
+    Add padding at the beginning of code and span
+    elements to format the HTML output
+
+    Args:
+        html (str): the HTML output string
+    """
+    format_html = html
+    format_html = format_html.replace("<code", "\n{}<code".format(" " * 12))
+    format_html = format_html.replace("<span", "\n{}<span".format(" " * 16))
+    format_html = format_html.replace("</code>", "\n{}</code>\n".format(" " * 12))
+    return format_html
+
+
 def write_html_file(html: str, plat: str) -> None:
     """
     Writes the html content generated from the PythonParser
@@ -144,7 +159,7 @@ def main() -> None:
             python_parser = PythonParser(tokens, is_updated, len(lines))
         html = python_parser.generate_html()
         if args.out:
-            print(html)
+            print(pretty_html(html))
         else:
             print('\n[+] Writing HTML from Python source...')
             if sys.platform == "linux" or sys.platform == "darwin":

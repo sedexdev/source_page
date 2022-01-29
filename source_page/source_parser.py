@@ -67,7 +67,6 @@ def get_span_class(token: TokenInfo) -> Tuple:
 
 
 class PythonParser:
-
     """
     Defines functions for parsing tokenized Python
     source code and building a syntax highlighted HTML page
@@ -151,7 +150,7 @@ class PythonParser:
                 first = False
             else:
                 whitespace = len(s) - (len(s.lstrip(" ")))
-                total_spacer = "&nbsp;" * (whitespace-1)
+                total_spacer = "&nbsp;" * (whitespace - 1)
             self.html += "<code class=\"code-line\">"
             self.add_line_number()
             self.html += "<span class=\"python-str\">{x}{y}</span>".format(x=total_spacer, y=s)
@@ -177,9 +176,9 @@ class PythonParser:
             if prev_value == "=":
                 first_str = value.split("\n")[0]
                 self.html += "<span class=\"python-str\">{x}{y}</span>".format(x=spacer, y=first_str)
-                self.html += "</code>"
+                self.html += "</code>\n"
                 self.line_number += 1
-                self.handle_multi_line_str(value[len(first_str)+1:], spacer, True)
+                self.handle_multi_line_str(value[len(first_str) + 1:], spacer, True)
                 return True
             self.delete_line()
             self.handle_multi_line_str(value, spacer)
@@ -311,31 +310,28 @@ class PythonParser:
         """
         Adds the metadata to the HTML string
         """
-        self.html += """
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Python HTML</title>
-            <style>
-                {}
-            </style>
-        </head>
-        <body>
-            <div class="code-block python-code-block">
-        """.format(self.theme)
+        self.html += ("<!DOCTYPE html>\n"
+                      "<html lang='en'>\n"
+                      "    <head>\n"
+                      "    <meta charset='UTF-8'>\n"
+                      "    <meta http-equiv='X-UA-Compatible' content='IE=edge'>\n"
+                      "    <meta name='viewport' content='width=device-width, initial-scale=1.0'>\n"
+                      "    <title>Python HTML</title>\n"
+                      "    <style>\n"
+                      "{}\n"
+                      "    </style>\n"
+                      "    </head>\n"
+                      "    <body>\n"
+                      "        <div class='code-block python-code-block'>\n"
+                      ).format(self.theme)
 
     def close_html(self) -> None:
         """
         Adds the closing tags to the HTML string
         """
-        self.html += """
-            </div>
-        </body>
-        </html>
-        """
+        self.html += ("        </div>\n"
+                      "    </body>\n"
+                      "</html>")
 
     def generate_html(self) -> str:
         """
