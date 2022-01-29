@@ -9,12 +9,17 @@ import themes
 import tokenize
 
 from source_parser import PythonParser
+from typing import List
 
 
-def theme_list():
+def theme_list() -> List:
     """
     Return a list of all available themes from
     themes.py
+
+    Returns:
+        A list of strings containing the names of all
+        available themes
     """
     return ["cool_blue_light", "cyber", "robot", "robot_light"]
 
