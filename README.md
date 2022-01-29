@@ -14,6 +14,14 @@ The HTML file will be saved in the current working directory.
 
 <b>NOTE</b>: This program requires <b>Python3.6</b> or later
 
+# Pretty-print HTML Output File
+
+Simply ceating a file using <code>python main.py -p [abspath]/python_script.py -t [THEME_NAME]</code> <b>will not</b> produce a well formatted HTML file. To do this you can use the following:
+
+<code>python main.py -p [abspath]/python_script.py -t [THEME_NAME] -o > output.html</code>
+
+This writes the <b>pretty-printed stdout output</b> to a file called <code>output.html</code>.
+
 # Options
 
 <code>-h, --help</code>: Show the options
