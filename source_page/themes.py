@@ -8,7 +8,7 @@ COOL_BLUE = """
         background-color: lightgrey;
         border: 1px dashed #333;
         text-align: left;
-        font-size: 1.1rem;
+        font-size: 0;
         overflow-x: scroll;
         white-space: nowrap;
         padding: 20px;
@@ -68,7 +68,7 @@ COOL_BLUE_LIGHT = """
         background-color: #fff;
         border: 1px dashed #333;
         text-align: left;
-        font-size: 1.1rem;
+        font-size: 0;
         overflow-x: scroll;
         white-space: nowrap;
         padding: 20px;
@@ -128,7 +128,7 @@ ROBOT = """
         background-color: lightgrey;
         border: 1px dashed #333;
         text-align: left;
-        font-size: 1.1rem;
+        font-size: 0;
         overflow-x: scroll;
         white-space: nowrap;
         padding: 20px;
@@ -188,7 +188,7 @@ ROBOT_LIGHT = """
         background-color: #eee;
         border: 1px dashed #333;
         text-align: left;
-        font-size: 1.1rem;
+        font-size: 0;
         overflow-x: scroll;
         white-space: nowrap;
         padding: 20px;
@@ -248,7 +248,7 @@ CYBER = """
         background-color: rgb(24, 61, 77);
         border: 1px dashed #333;
         text-align: left;
-        font-size: 1.1rem;
+        font-size: 0;
         overflow-x: scroll;
         white-space: nowrap;
         padding: 20px;

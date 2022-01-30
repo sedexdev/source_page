@@ -166,7 +166,7 @@ def main() -> None:
                 path = get_output_path("/", args)
             elif sys.platform == "win32":
                 path = get_output_path("\\", args)
-            write_html_file(html, sys.platform)
+            write_html_file(pretty_html(html), sys.platform)
             print('[+] Writing complete!')
             print('\n[+] You can find your file here: {}python_html.html\n'.format(path))
 
