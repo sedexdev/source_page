@@ -8,7 +8,7 @@ built-in Python tokenizer class for lexical analysis, then parses the tokens to 
 
 <code>python main.py [-h] -p [abspath]/python_script.py [-t] [THEME_NAME] [-o]</code>
 
-This will create a pretty-printed, colour coded HTML file of the Python script that you can add to a Web page.
+This will create a syntax-higlighted HTML file of the Python script called <code>python_html.html</code> that you can add to a Web page.
 
 The HTML file will be saved in the current working directory.
 
