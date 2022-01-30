@@ -140,7 +140,10 @@ def write_html_file(html: str, plat: str) -> None:
 
 def main() -> None:
     """
-    Main function for the Python_HTML_Parser app
+    Main function for the SourcePage tool. Gets
+    arguments from the command line to build and
+    write a HTML string that can be sent to stdout
+    or written directly to a .html file
     """
     if not check_py_version(3, 6):
         print("\n[-] This program requires Python3.6 or later!")
