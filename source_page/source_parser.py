@@ -263,7 +263,14 @@ class PythonParser:
             self.add_line_number()
             first = True
 
+            line_join = False
+
             while token_type != "NEWLINE":
+
+                if line_join:
+                    self.html += "<code class=\"code-line\">"
+                    self.add_line_number()
+                    first = True
 
                 if token_type == "NL":
                     break
@@ -287,6 +294,7 @@ class PythonParser:
 
                 prev_token_value = token_value
                 prev_token_start = token_start
+                prev_token_end = token.end[1]
                 prev_token_length = len(str(token_value))
 
                 token = next(self.tokens, None)
@@ -301,6 +309,14 @@ class PythonParser:
 
                 token_value = token.string
                 token_start = token.start[1]
+
+                if token_start < prev_token_end:
+                    self.html += "<span class='python-op'>&nbsp;\\</span>"
+                    self.html += "</code>"
+                    self.line_number += 1
+                    line_join = True
+                else:
+                    line_join = False
 
             if not parse_broken:
                 self.html += "</code>"
