@@ -44,8 +44,6 @@ def get_args() -> argparse.Namespace:
         parser.error('\n\n[-] Expected a file to parse\n')
     if not os.path.isfile(args.path):
         parser.error('\n\n[-] File not found\n')
-    if not os.path.isabs(args.path):
-        parser.error('\n\n[-] Please provide the absolute path for the file\n')
     suffix = pathlib.Path(args.path).suffix
     if not suffix == '.py':
         parser.error('\n\n[-] Expected a Python (.py) file, not {} file type\n'.format(suffix))
@@ -71,6 +69,20 @@ def check_py_version(major: int, minor: int) -> bool:
     """
     version = platform.python_version_tuple()
     return int(version[0]) >= major and int(version[1]) >= minor
+
+
+def get_full_path(path: str) -> str:
+    """
+    Get the path to the file that is going to be read
+
+    Args:
+        path (str): the file path provided by the user
+    """
+    if os.path.isabs(path):
+        full_path = path
+    else:
+        full_path = os.path.join(os.getcwd(), path)
+    return full_path
 
 
 def get_output_path(delimiter: str, args: argparse.Namespace) -> str:
@@ -124,6 +136,25 @@ def write_html_file(html: str, plat: str) -> None:
             file.write(html)
 
 
+def output_file(args: argparse.Namespace, html: str) -> None:
+    """
+    Writes the output file by calling write_html_file()
+    and prints update messages to the user
+
+    Args:
+        args (argparse.Namespace): args provided by user
+        html (str): html string to write to file
+    """
+    print('\n[+] Writing HTML from Python source...')
+    if sys.platform == "win32":
+        path = get_output_path("\\", args)
+    else:
+        path = get_output_path("/", args)
+    write_html_file(pretty_html(html), sys.platform)
+    print('[+] Writing complete!')
+    print('\n[+] You can find your file here: {}python_html.html\n'.format(path))
+
+
 def main() -> None:
     """
     Main function for the SourcePage tool. Gets
@@ -137,27 +168,24 @@ def main() -> None:
         return
     args = get_args()
     is_updated = check_py_version(3, 10)
-    with open(args.path, 'r') as file:
-        lines = file.readlines()
-    with open(args.path, 'r') as file:
-        tokens = tokenize.generate_tokens(file.readline)
-        if args.theme:
-            theme = get_theme(args.theme.lower())
-            python_parser = PythonParser(tokens, is_updated, len(lines), theme)
-        else:
-            python_parser = PythonParser(tokens, is_updated, len(lines))
-        html = python_parser.generate_html()
-        if args.out:
-            print(pretty_html(html))
-        else:
-            print('\n[+] Writing HTML from Python source...')
-            if sys.platform == "linux" or sys.platform == "darwin":
-                path = get_output_path("/", args)
-            elif sys.platform == "win32":
-                path = get_output_path("\\", args)
-            write_html_file(pretty_html(html), sys.platform)
-            print('[+] Writing complete!')
-            print('\n[+] You can find your file here: {}python_html.html\n'.format(path))
+    full_path = get_full_path(args.path)
+    try:
+        with open(full_path, 'r') as file:
+            lines = file.readlines()
+        with open(full_path, 'r') as file:
+            tokens = tokenize.generate_tokens(file.readline)
+            if args.theme:
+                theme = get_theme(args.theme.lower())
+                python_parser = PythonParser(tokens, is_updated, len(lines), theme)
+            else:
+                python_parser = PythonParser(tokens, is_updated, len(lines))
+            html = python_parser.generate_html()
+            if args.out:
+                print(pretty_html(html))
+            else:
+                output_file(args, html)
+    except FileNotFoundError:
+        print("\n[-] File not found")
 
 
 if __name__ == '__main__':
