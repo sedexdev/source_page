@@ -9,19 +9,13 @@ import themes
 import tokenize
 
 from source_parser import PythonParser
-from typing import List
 
 
-def theme_list() -> List:
-    """
-    Return a list of all available themes from
-    themes.py
-
-    Returns:
-        A list of strings containing the names of all
-        available themes
-    """
-    return ["cool_blue_light", "cyber", "robot", "robot_light"]
+theme_list = [
+    "cool_blue_light",
+    "cyber",
+    "robot",
+    "robot_light"]
 
 
 def get_theme(theme) -> str:
@@ -62,7 +56,7 @@ def get_args() -> argparse.Namespace:
     if not suffix == '.py':
         parser.error('\n\n[-] Expected a Python (.py) file, not {} file type\n'.format(suffix))
     theme = args.theme
-    if theme and theme.lower() not in theme_list():
+    if theme and theme.lower() not in theme_list:
         parser.error("\n\n[-] Unknown theme: {}. See https://github.com/sedexdev/source_page for more\n".format(theme))
     return args
 
