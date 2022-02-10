@@ -23,9 +23,7 @@ def has_str_prefix(value: str) -> bool:
     """
     string_prefix = ["r", "u", "R", "U", "f", "F", "fr", "Fr", "fR", "FR", "rf", "rF", "Rf", "RF"]
     bytes_prefix = ["b", "B", "br", "Br", "bR", "BR", "rb", "rB", "Rb", "RB"]
-    if value[0] in string_prefix or value[0] in bytes_prefix:
-        return True
-    return False
+    return value[0] in string_prefix or value[0] in bytes_prefix
 
 
 def is_multi_line(value: str) -> bool:

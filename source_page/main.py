@@ -82,9 +82,7 @@ def check_py_version(major: int, minor: int) -> bool:
         the values in the parameters
     """
     version = platform.python_version_tuple()
-    if int(version[0]) >= major and int(version[1]) >= minor:
-        return True
-    return False
+    return int(version[0]) >= major and int(version[1]) >= minor
 
 
 def get_output_path(delimiter: str, args: argparse.Namespace) -> str:
