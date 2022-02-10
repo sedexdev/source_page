@@ -45,12 +45,13 @@ Sample using default theme 'COOL_BLUE'
 Binaries are available for Linux and Windows from the <a href="https://github.com/sedexdev/source_page/tree/master/source_page/bin">bin</a> folder.
 
 These were compiled using <a href="https://pyinstaller.readthedocs.io/en/stable/">Pyinstaller</a>. This tool bundles
-application modules and libraries into a single executable that doesn't require Python to be installed on your system
+application modules and libraries into a single executable that <b>doesn't require Python</b> to be installed on your system
 to run.
 
 The platforms used to compile the executables were:
 
 <b>Linux:</b> Linux Mint 20.2 Uma. Linux version 5.4.0-97-generic
+</br>
 <b>Windows:</b> Windows 10
 
 # License
