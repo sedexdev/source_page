@@ -173,3 +173,9 @@ token_ids_new = {
     64: 'N_TOKENS',
     256: 'NT_OFFSET'
 }
+
+theme_list = [
+    "cool_blue_light",
+    "cyber",
+    "robot",
+    "robot_light"]

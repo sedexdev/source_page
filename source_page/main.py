@@ -9,13 +9,7 @@ import themes
 import tokenize
 
 from source_parser import PythonParser
-
-
-theme_list = [
-    "cool_blue_light",
-    "cyber",
-    "robot",
-    "robot_light"]
+from vars import theme_list
 
 
 def get_theme(theme) -> str:
