@@ -1,28 +1,29 @@
 # SourcePage: A Python parser that creates HTML pages
 
 Parses Python source code and produces a pretty-printed, syntax-highlighted HTML representation of the code. This app uses
-the <a href="https://docs.python.org/3/library/tokenize.html">tokenize</a>
-built-in Python tokenizer class for lexical analysis, then parses the tokens to generate the HTML output.
+the <a href="https://docs.python.org/3/library/tokenize.html">tokenize</a> built-in Python tokenizer class for lexical analysis, 
+then parses the tokens to generate the HTML output.
 
 # Usage
 
 <code>python main.py [-h] -p [abspath]/python_script.py [-t] [THEME_NAME] [-o]</code>
 
-This will create a syntax-highlighted HTML file of the Python script called <code>python_html.html</code> that you can add to a Web page.
+This will create well-formatted HTML from the Python script that is sent to <b>stdout</b> by default.
 
-The HTML file will be saved in the current working directory.
+The output can easily be sent to a file called <code>output.html</code> by using the <code>-o/code> switch.
+The HTML file will be saved in your current working directory.
 
-<b>NOTE</b>: This program requires <b>Python3.6</b> or later
+<b>NOTE</b>: This program requires <b>Python3.6</b> or later.
 
 # Options
 
 <code>-h, --help</code>: Show the options
 </br>
-<code>-p, --path</code>: The absolute path of the Python source file to parse (**required**)
+<code>-p, --path</code>: The absolute or relative path to the Python source file to parse (**required**)
 </br>
 <code>-t, --theme</code>: The syntax highlighting theme</code>
 </br>
-<code>-o, --out</code>: Send output to stdout rather than a file
+<code>-o, --output</code>: Send output to a file rather than stdout
 </br></br>
 Available Themes:
 <ul>
@@ -39,6 +40,19 @@ Sample using default theme 'COOL_BLUE'
 
 ![Sample HTML Output](/source_page/imgs/sample.png)
 
+# Binary Files
+
+Binaries are available for Linux and Windows from the <a href="https://github.com/sedexdev/source_page/source_page/bin">bin</a> folder.
+
+These were compiled using <a href="https://pyinstaller.readthedocs.io/en/stable/">Pyinstaller</a>. This tool bundles
+application modules and libraries into a single executable that doesn't require Python to be installed on your system
+to run.
+
+The platforms used to compile the executables were:
+
+<b>Linux:</b> Linux Mint 20.2 Uma. Linux version 5.4.0-97-generic
+<b>Windows:</b> Windows 10
+
 # License
 
-<a href="https://github.com/sedexdev/python_html_parser/blob/main/LICENSE">M.I.T</a>
+<a href="https://github.com/sedexdev/source_page/blob/master/LICENSE">M.I.T</a>
