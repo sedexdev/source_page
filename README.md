@@ -10,7 +10,7 @@ then parses the tokens to generate the HTML output.
 
 This will create well-formatted HTML from the Python script that is sent to <b>stdout</b> by default.
 
-The output can easily be sent to a file called <code>output.html</code> by using the <code>-o/code> switch.
+The output can easily be sent to a file called <code>output.html</code> by using the <code>-o</code> switch.
 The HTML file will be saved in your current working directory.
 
 <b>NOTE</b>: This program requires <b>Python3.6</b> or later.
