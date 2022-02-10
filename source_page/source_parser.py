@@ -330,7 +330,7 @@ class PythonParser:
                       "    <meta charset='UTF-8'>\n"
                       "    <meta http-equiv='X-UA-Compatible' content='IE=edge'>\n"
                       "    <meta name='viewport' content='width=device-width, initial-scale=1.0'>\n"
-                      "    <title>Python HTML</title>\n"
+                      "    <title>SourcePage Output HTML</title>\n"
                       "    <style>\n"
                       "{}\n"
                       "    </style>\n"
