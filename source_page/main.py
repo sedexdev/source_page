@@ -38,7 +38,7 @@ def get_args() -> argparse.Namespace:
         required=True,
         help='The full path of the Python file to be parsed into HTML')
     parser.add_argument('-t', '--theme', dest='theme', help='Syntax highlighting theme to use. Defaults to COOL_BLUE')
-    parser.add_argument('-o', '--out', action='store_true', help='Send the output to stdout, not a file')
+    parser.add_argument('-o', '--output', action='store_true', help='Send the output to a file')
     args = parser.parse_args()
     if not args.path:
         parser.error('\n\n[-] Expected a file to parse\n')
@@ -71,7 +71,7 @@ def check_py_version(major: int, minor: int) -> bool:
     return int(version[0]) >= major and int(version[1]) >= minor
 
 
-def get_full_path(path: str) -> str:
+def get_source_path(path: str) -> str:
     """
     Get the path to the file that is going to be read
 
@@ -79,28 +79,8 @@ def get_full_path(path: str) -> str:
         path (str): the file path provided by the user
     """
     if os.path.isabs(path):
-        full_path = path
-    else:
-        full_path = os.path.join(os.getcwd(), path)
-    return full_path
-
-
-def get_output_path(delimiter: str, args: argparse.Namespace) -> str:
-    """
-    Creates a string representation of the absolute path
-    for the parent directory of the HTML output file
-
-    Args:
-        delimiter (str): the path delimiter
-        args (Namespace): command line arguments
-
-    Returns:
-        A string of the parent directory for the HTML file
-    """
-    path_list = args.path.split(delimiter)
-    path_dir = path_list[:len(path_list) - 1]
-    path = delimiter.join([x for x in path_dir])
-    return "{x}{y}".format(x=path, y=delimiter)
+        return path
+    return os.path.join(os.getcwd(), path)
 
 
 def pretty_html(html: str) -> str:
@@ -127,32 +107,18 @@ def write_html_file(html: str, plat: str) -> None:
         html (str): the html to write to file
         plat (str): the platform the program is running on
     """
-    base_dir = os.getcwd()
-    if plat == "linux" or plat == "darwin":
-        with open('{}/python_html.html'.format(base_dir), 'w') as file:
-            file.write(html)
-    elif plat == "win32":
-        with open('{}\\python_html.html'.format(base_dir), 'w') as file:
-            file.write(html)
-
-
-def output_file(args: argparse.Namespace, html: str) -> None:
-    """
-    Writes the output file by calling write_html_file()
-    and prints update messages to the user
-
-    Args:
-        args (argparse.Namespace): args provided by user
-        html (str): html string to write to file
-    """
     print('\n[+] Writing HTML from Python source...')
-    if sys.platform == "win32":
-        path = get_output_path("\\", args)
+    base_dir = os.getcwd()
+    if plat == "win32":
+        with open('{}\\output.html'.format(base_dir), 'w') as file:
+            file.write(html)
+            print('[+] Writing complete!')
+            print('\n[+] You can find your file here: {}\\output.html\n'.format(os.getcwd()))
     else:
-        path = get_output_path("/", args)
-    write_html_file(pretty_html(html), sys.platform)
-    print('[+] Writing complete!')
-    print('\n[+] You can find your file here: {}python_html.html\n'.format(path))
+        with open('{}/output.html'.format(base_dir), 'w') as file:
+            file.write(html)
+            print('[+] Writing complete!')
+            print('\n[+] You can find your file here: {}/output.html\n'.format(os.getcwd()))
 
 
 def main() -> None:
@@ -168,7 +134,7 @@ def main() -> None:
         return
     args = get_args()
     is_updated = check_py_version(3, 10)
-    full_path = get_full_path(args.path)
+    full_path = get_source_path(args.path)
     try:
         with open(full_path, 'r') as file:
             lines = file.readlines()
@@ -180,10 +146,10 @@ def main() -> None:
             else:
                 python_parser = PythonParser(tokens, is_updated, len(lines))
             html = python_parser.generate_html()
-            if args.out:
+            if not args.output:
                 print(pretty_html(html))
             else:
-                output_file(args, html)
+                write_html_file(html, sys.platform)
     except FileNotFoundError:
         print("\n[-] File not found")
 
