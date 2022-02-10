@@ -1,6 +1,6 @@
 # SourcePage: A Python parser that creates HTML pages
 
-Parses Python source code and produces a pretty-printed, syntax-highlighted HTML representation of the code. This app uses
+Parses Python source code and produces a pretty-printed, syntax-highlighted HTML representation of the code. This tool uses
 the <a href="https://docs.python.org/3/library/tokenize.html">tokenize</a> built-in Python tokenizer class for lexical analysis, 
 then parses the tokens to generate the HTML output.
 
