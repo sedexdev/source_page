@@ -1,59 +1,82 @@
-# SourcePage: A Python parser that creates HTML pages
+# 📘 SourcePage: Parse Python source to HTML
 
 Parses Python source code and produces a pretty-printed, syntax-highlighted HTML representation of the code. This tool uses
-the <a href="https://docs.python.org/3/library/tokenize.html">tokenize</a> built-in Python tokenizer class for lexical analysis, 
+the [tokenize](https://docs.python.org/3/library/tokenize.html) built-in Python tokenizer class for lexical analysis,
 then parses the tokens to generate the HTML output.
 
-# Usage
+## ✨ Features
 
-<code>python main.py [-h] -p [abspath]/python_script.py [-t] [THEME_NAME] [-o]</code>
+-   ✅ Pretty printed Python to add to your Web page
+-   ✅ Line numbering
+-   ✅ Syntax highlighting
+-   📦 Easy to install and use
+-   🔧 Customisable themes - easily extend by creating additional CSS blocks in `themes.py`
 
-This will create well-formatted HTML from the Python script that is sent to <b>stdout</b> by default.
+## 🚀 Demo
 
-The output can easily be sent to a file called <code>output.html</code> by using the <code>-o</code> switch.
-The HTML file will be saved in your current working directory.
+Sample using built in theme 'CYBER'
 
-<b>NOTE</b>: This program requires <b>Python3.6</b> or later.
+![Sample HTML Output](/src/imgs/sample.png)
 
-# Options
+## 📦 Installation
 
-<code>-h, --help</code>: Show the options
-</br>
-<code>-p, --path</code>: The absolute or relative path to the Python source file to parse (**required**)
-</br>
-<code>-t, --theme</code>: The syntax highlighting theme</code>
-</br>
-<code>-o, --output</code>: Send output to a file rather than stdout
-</br></br>
-Available Themes:
-<ul>
-    <li>COOL_BLUE (default)</li>
-    <li>COOL_BLUE_LIGHT </li>
-    <li>CYBER </li>
-    <li>ROBOT </li>
-    <li>ROBOT_LIGHT </li>
-</ul>
+### Prerequisites
 
-# Sample Output
+```bash
+Python >= 3.6
+```
 
-Sample using default theme 'COOL_BLUE'
+### Get the code
 
-![Sample HTML Output](/source_page/imgs/sample.png)
+```bash
+# Clone the repository
+git clone https://github.com/sedexdev/source_page.git
+cd source_page
+```
 
-# Binary Files
+## 🛠️ Usage
 
-Binaries are available for Linux and Windows from the <a href="https://github.com/sedexdev/source_page/tree/master/source_page/bin">bin</a> folder.
+`python3 src/main.py [-h] -p /path/to/script.py [-t] [THEME_NAME] [-o]`
 
-These were compiled using <a href="https://pyinstaller.readthedocs.io/en/stable/">Pyinstaller</a>. This tool bundles
-application modules and libraries into a single executable that <b>doesn't require Python</b> to be installed on your system
-to run.
+-   This will create well-formatted HTML from the Python script that is sent to `stdout` by default.
+-   Using the `-o` switch creates a file called `output.html` in the current directory.
 
-The platforms used to compile the executables were:
+_NOTE_: This program requires **Python3.6** or later.
 
-<b>Linux:</b> Linux Mint 20.2 Uma. Linux version 5.4.0-97-generic
-</br>
-<b>Windows:</b> Windows 10
+### Options
 
-# License
+-   `-h, --help`: Show the options
+-   `-p, --path`: The absolute or relative path to the Python source file to parse (**required**)
+-   `-t, --theme`: The syntax highlighting theme`
+-   `-o, --output`: Send output to a file rather than stdout
 
-<a href="https://github.com/sedexdev/source_page/blob/master/LICENSE">M.I.T</a>
+### Available Themes:
+
+-   COOL_BLUE (default)
+-   COOL_BLUE_LIGHT
+-   CYBER
+-   ROBOT
+-   ROBOT_LIGHT
+
+## 📂 Project Structure
+
+```
+source_page/
+│
+├── src/                # Source files
+├── .gitignore          # Git ignore file
+├── LICENSE             # MIT License file
+└── README.md           # This README.md file
+```
+
+## 🐛 Reporting Issues
+
+Found a bug or need a feature? Open an issue [here](https://github.com/sedexdev/source_page/issues).
+
+## 🧑‍💻 Authors
+
+-   **Andrew Macmillan** – [@sedexdev](https://github.com/sedexdev)
+
+## 📜 License
+
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/sedexdev/source_page/blob/master/LICENSE) file for details.
